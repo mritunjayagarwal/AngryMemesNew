@@ -104,7 +104,7 @@ function App() {
       {!isLoggedIn &&
         <div>
           <div>
-          <img src={require('./img/angrymemes.png')} className='img-fluid' alt="" />
+          <img src={require('./img/angrymemes.png')} className='img-fluid angry-memes-logo' alt="" />
           </div>
           <button onClick={SignUpUsingGoogle} type="button" className="login-with-google-btn mt-4" >
             Sign in with Google

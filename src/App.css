@@ -160,6 +160,10 @@ body{
   height: 100vh;
 }
 
+.angry-memes-logo:hover{
+  transform: scale(1.02);
+}
+
 /* Add some responsive styling */
 @media screen and (max-width: 480px) {
   .profile-card {
