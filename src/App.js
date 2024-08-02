@@ -4,15 +4,18 @@ import { useEffect, useState } from 'react';
 import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase/firebaseConfig';
 import { Unity, useUnityContext } from "react-unity-webgl";
+import { useOrientation } from 'react-use';
 
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userData, setUserData] = useState({})
-
+  const [warning, setWarning] = useState(false);
+  const { type } = useOrientation();
 
   useEffect(() => {
+    if(type == "landscape-primary") setWarning(true);
     const unsubscribe = onAuthStateChanged(auth, (result) => {
       if (result) {
 
@@ -66,7 +69,7 @@ function App() {
 
   return (
     <div className="App">
-      <nav className="navbar navbar-expand-lg py-3 m-0 bg-transparent" data-aos="fade-down" data-aos-delay="800">
+      {/* <nav className="navbar navbar-expand-lg py-3 m-0 bg-transparent" data-aos="fade-down" data-aos-delay="800">
         <div className="container">
           <a className="navbar-brand me-2" href="#">
             <img src="./assets/img/logo.png" style={{ "width": "80px", "height": "auto", "margin-top": "-10px" }} alt="" /> Angry memes
@@ -98,7 +101,7 @@ function App() {
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> */}
       <main>
       <div className='main-body-web container'>
       {!isLoggedIn &&
@@ -112,16 +115,21 @@ function App() {
         </div>
       }
 
-      {isLoggedIn &&
+      {!warning && isLoggedIn &&
         <div>
-          <Unity unityProvider={unityProvider} style = {{position: "absolute", top: "50px", width: "100%", left: 0, height: "100%", right: 0, bottom: 0}}/>
+          <Unity unityProvider={unityProvider} className='unity-web'/>
         </div>
       }
       </div>
       </main>
 
 
-
+      {warning && isLoggedIn && <div id = "fill-wd" class="d-flex align-items-center justify-content-center" onClick = {() => setWarning(false)} style = {{position: "absolute", left: 0, right: 0, top: 0, bottom: 0, background: "rgba(0,0,0, 0.9)","z-index": 2}}>
+    <div class = "text-center">
+      <img src={require('./img/rotate.png')} style = {{"z-index": 3, width: "100px"}} alt="" />
+      <p class= "text-center text-white mt-4">Roatate to landscape and Click anywhere to play</p>
+    </div>
+  </div>}
     </div>
   );
 }

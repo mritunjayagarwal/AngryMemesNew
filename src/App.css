@@ -145,7 +145,6 @@ body {
 
 
 .main-body-web{
-  position: relative;
   height: 80vh;
   display: flex;
   align-items: center;
@@ -164,10 +163,29 @@ body{
   transform: scale(1.02);
 }
 
+.unity-web {
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 0;
+}
+
 /* Add some responsive styling */
 @media screen and (max-width: 480px) {
   .profile-card {
     width: 100%;
     max-width: 300px;
   }
+
+  .main-body-web{
+  position: unset;
+  height: unset;
+  display: unset;
+  align-items: unset;
+  justify-content: unset;
+}
 }
